@@ -90,7 +90,7 @@ const Navigation = () => {
           >
             <DropdownItem
               key="profile"
-              className="gap-2 text-white hover:opacity-80 font-semibold"
+              className="text-black gap-2 dark:text-foreground hover:opacity-80 font-semibold"
               as={Link}
               href="/profile"
             >
