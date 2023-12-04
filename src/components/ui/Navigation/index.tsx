@@ -97,8 +97,6 @@ const Navigation = () => {
               Signed as
               <br />
               test@example.com
-              {/* <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">test@example.com</p> */}
             </DropdownItem>
             <DropdownItem key="logout" color="danger">
               Log Out
