@@ -88,15 +88,15 @@ const Navigation = () => {
             variant="faded"
             className="break-all"
           >
-            <DropdownItem
-              key="profile"
-              className="text-black gap-2 dark:text-foreground hover:opacity-80 font-semibold"
-              as={Link}
-              href="/profile"
-            >
-              Signed as
-              <br />
-              test@example.com
+            <DropdownItem key="profile" className="gap-2" textValue="profile">
+              <Link
+                href="/profile"
+                className="text-black dark:text-foreground text-sm font-normal"
+              >
+                Signed as
+                <br />
+                test@example.com
+              </Link>
             </DropdownItem>
             <DropdownItem key="logout" color="danger">
               Log Out
