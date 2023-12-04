@@ -1,3 +1,3 @@
 export default function Profile() {
-  return <div>This is profile page</div>;
+  return <div className="flex justify-center">Profile page</div>;
 }

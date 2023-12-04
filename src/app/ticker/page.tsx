@@ -1,3 +1,3 @@
 export default function Ticker() {
-  return <div>Ticker page</div>;
+  return <div className="flex justify-center">Ticker page</div>;
 }

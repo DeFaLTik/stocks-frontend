@@ -1,98 +1,125 @@
 "use client";
 import {
   Navbar,
-  NavbarBrand,
   NavbarContent,
   NavbarItem,
+  NavbarMenuToggle,
   Link,
   DropdownItem,
   DropdownTrigger,
   Dropdown,
   DropdownMenu,
   Avatar,
+  NavbarMenu,
+  NavbarMenuItem,
 } from "@nextui-org/react";
 import { ThemeSwitcher } from "../ThemeSwither/ThemeSwitcher";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import styles from "./navigataion.module.css";
+import styles from "./navigation.module.css";
+import CustomToolTip from "../CustomToolTip/CustomToolTip";
 
 const Navigation = () => {
-  const pathname = usePathname();
   const links = {
     "/ticker": "Ticker",
-    "/": "Home",
     "/about": "About",
   };
-  const [activePage, setActivePage] = useState(pathname);
+
+  const [activePage, setActivePage] = useState(usePathname());
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const ChangeColor = (pageNumber: string) => {
     setActivePage(pageNumber);
   };
-  const middleElement = Math.floor(Object.keys(links).length / 2);
   return (
-    <Navbar maxWidth="full">
-      <div className="grid grid-cols-6 w-full">
-        <NavbarBrand>
-          <p className="font-bold text-inherit">Stocks</p>
-        </NavbarBrand>
-
-        <NavbarContent className="col-start-2 col-end-6 hidden sm:flex gap-4">
-          {Object.entries(links).map(([link, title], index) => (
-            <NavbarItem
+    <Navbar
+      maxWidth="full"
+      className="antialiased"
+      onMenuOpenChange={setIsMenuOpen}
+      disableAnimation
+      isBlurred={false}
+    >
+      <NavbarContent>
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          className="min-[500px]:hidden"
+        />
+        <CustomToolTip content="Home">
+          <Link href="/" className="font-bold text-inherit h-[40px]">
+            Stocks
+          </Link>
+        </CustomToolTip>
+      </NavbarContent>
+      <NavbarContent justify="end" className="gap-0">
+        {Object.entries(links).map(([link, title], index) => (
+          <NavbarItem
+            key={index.toString()}
+            className="hidden min-[500px]:flex m-2"
+          >
+            <Link
+              href={link}
+              color={link == activePage ? "secondary" : "foreground"}
+              onPress={() => ChangeColor(link)}
               key={index.toString()}
-              className={
-                index == middleElement
-                  ? "mx-auto"
-                  : index < middleElement
-                  ? "mr-auto flex flex-1 justify-end"
-                  : "ml-auto flex flex-1 justify-start"
-              }
+              className={styles.withUnderLine}
             >
-              <Link
-                href={link}
-                color={link == activePage ? "secondary" : "foreground"}
-                onPress={() => ChangeColor(link)}
-                key={index.toString()}
-              >
-                {title}
-              </Link>
-            </NavbarItem>
-          ))}
-        </NavbarContent>
-
-        <NavbarContent as="div" justify="end" className="flex col-start-6">
-          <NavbarItem>
-            <ThemeSwitcher></ThemeSwitcher>
+              {title}
+            </Link>
           </NavbarItem>
-          <Dropdown placement="bottom-end">
-            <DropdownTrigger>
-              <Avatar
-                isBordered
-                as="button"
-                className="transition-transform"
-                color="secondary"
-                name="Jason Hughes"
-                size="sm"
-                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-              />
-            </DropdownTrigger>
-            <DropdownMenu aria-label="Profile Actions" variant="faded">
-              <DropdownItem key="profile" className="h-14 gap-2">
-                <p className="font-semibold">Signed in as</p>
-                <p className="font-semibold">zoey@example.com</p>
-              </DropdownItem>
-              <DropdownItem key="settings">My Settings</DropdownItem>
-              <DropdownItem key="configurations">Configurations</DropdownItem>
-              <DropdownItem key="help_and_feedback">
-                Help & Feedback
-              </DropdownItem>
-              <DropdownItem key="logout" color="danger">
-                Log Out
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-        </NavbarContent>
-      </div>
+        ))}
+        <CustomToolTip content="Mode">
+          <NavbarItem className="m-2">
+            <ThemeSwitcher />
+          </NavbarItem>
+        </CustomToolTip>
+        <Dropdown placement="bottom-end" className="max-w-[120px]">
+          <DropdownTrigger className="ml-4">
+            <Avatar
+              isBordered
+              as="button"
+              className="transition-transform"
+              color="secondary"
+              size="sm"
+              showFallback
+            />
+          </DropdownTrigger>
+          <DropdownMenu
+            aria-label="Profile Actions"
+            variant="faded"
+            className="break-all"
+          >
+            <DropdownItem
+              key="profile"
+              className="gap-2 text-white hover:opacity-80 font-semibold"
+              as={Link}
+              href="/profile"
+            >
+              Signed as
+              <br />
+              test@example.com
+              {/* <p className="font-semibold">Signed in as</p>
+              <p className="font-semibold">test@example.com</p> */}
+            </DropdownItem>
+            <DropdownItem key="logout" color="danger">
+              Log Out
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </NavbarContent>
+      <NavbarMenu>
+        {Object.entries(links).map(([link, title], index) => (
+          <NavbarMenuItem key={index.toString()}>
+            <Link
+              href={link}
+              color={link == activePage ? "secondary" : "foreground"}
+              onPress={() => ChangeColor(link)}
+              key={index.toString()}
+            >
+              {title}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
     </Navbar>
   );
 };

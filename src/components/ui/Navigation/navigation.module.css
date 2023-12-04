@@ -1,0 +1,27 @@
+.withUnderLine::after {
+  @apply content-[''] 
+  bg-current
+  h-[2px] 
+  w-[0%]
+  -bottom-[0px] 
+  -translate-x-1/2
+  left-1/2
+  rounded-xl
+  absolute
+  ease-in-out
+  duration-300;
+  transition-property: width;
+}
+.withUnderLine:active {
+  transition-property: opacity;
+  transition-duration: 200ms;
+  opacity: 0.5 !important;
+  animation-timing-function: ease-in-out;
+}
+
+.withUnderLine:hover::after {
+  @apply w-[100%];
+}
+.withUnderLine:hover {
+  opacity: 1;
+}
