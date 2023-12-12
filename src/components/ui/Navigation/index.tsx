@@ -25,7 +25,9 @@ const Navigation = () => {
     "/about": "About",
   };
 
-  const [activePage, setActivePage] = useState(usePathname());
+  const [activePage, setActivePage] = useState(
+    `/${usePathname().split("/")[1]}`
+  );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const ChangeColor = (pageNumber: string) => {
@@ -34,9 +36,10 @@ const Navigation = () => {
   return (
     <Navbar
       maxWidth="full"
+      height={"64px"}
       className="antialiased"
+      isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
-      disableAnimation
       isBlurred={false}
     >
       <NavbarContent>
@@ -45,7 +48,13 @@ const Navigation = () => {
           className="min-[500px]:hidden"
         />
         <CustomToolTip content="Home">
-          <Link href="/" className="font-bold text-inherit h-[40px]">
+          <Link
+            href="/"
+            className="font-bold text-inherit h-[40px]"
+            onPress={() => {
+              setActivePage("/home");
+            }}
+          >
             Stocks
           </Link>
         </CustomToolTip>
@@ -92,6 +101,7 @@ const Navigation = () => {
               <Link
                 href="/profile"
                 className="text-black dark:text-foreground text-sm font-normal"
+                onPress={() => setActivePage("/profile")}
               >
                 Signed as
                 <br />
@@ -110,7 +120,10 @@ const Navigation = () => {
             <Link
               href={link}
               color={link == activePage ? "secondary" : "foreground"}
-              onPress={() => ChangeColor(link)}
+              onPress={() => {
+                ChangeColor(link);
+                setIsMenuOpen(!isMenuOpen);
+              }}
               key={index.toString()}
             >
               {title}

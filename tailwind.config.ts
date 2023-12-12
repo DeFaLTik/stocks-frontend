@@ -9,9 +9,31 @@ const config: Config = {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        Roboto: ["Roboto"],
+      },
+    },
   },
   darkMode: "class",
-  plugins: [nextui()],
+  plugins: [
+    nextui({
+      themes: {
+        light: {
+          // ...
+          colors: {
+            secondary: "#66AAF9",
+          },
+        },
+        dark: {
+          // ...
+          colors: {
+            secondary: "#66AAF9",
+          },
+        },
+        // ... custom themes
+      },
+    }),
+  ],
 };
 export default config;
