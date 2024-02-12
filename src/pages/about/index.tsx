@@ -1,10 +1,9 @@
-import Profile from "@/components/profile";
 import { motion as m } from "framer-motion";
 
-export default function Home() {
+export default function About() {
   return (
     <m.div
-      key="home"
+      key="about"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{
@@ -20,9 +19,9 @@ export default function Home() {
       className="w-full h-full z-50 flex justify-center whitespace-nowrap 
       items-center text-7xl font-semibold bg-gradient-to-b 
       from-transparent
-      dark:from-transparent/50  dark:to-neutral-800 to-neutral-200 backdrop-blur-3xl"
+      dark:from-transparent/50   dark:to-neutral-800 to-neutral-200 backdrop-blur-3xl"
     >
-      Home
+      About
     </m.div>
   );
 }
